@@ -1,12 +1,12 @@
 import React from 'react'
 import { Nav, NavLink, NavIcon, Bars } from './NavbarEl'
 
-function index() {
+function index({ toggle }) {
     return (
         <>
         <Nav>
-           <NavLink to="/">oFood</NavLink>
-           <NavIcon>
+           <NavLink to="/">oFastFood.</NavLink>
+           <NavIcon onClick={toggle}>
                <p>Menu</p>
                <Bars/>
            </NavIcon>

@@ -1,11 +1,19 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Navbar from '../Nabar'
 import { HeroContainer, HeroContent, HeroItems, HeroH1, HeroBtn, HeroP } from './HeroElement';
+import Sidebar from '../Sidebar'
 
-function index() {
+function Index() {
+    const [isOpen, setIsOpen ] = useState(false);
+
+    const toggle = () => {
+        setIsOpen(!isOpen)
+    }
+
     return (
       <HeroContainer>
-          <Navbar/>
+          <Navbar toggle={toggle}/>
+          <Sidebar isOpen={isOpen} toggle={toggle}/>
           <HeroContent>
               <HeroItems>
                   <HeroH1>Greatest Food Ever</HeroH1>
@@ -17,4 +25,4 @@ function index() {
     )
 }
 
-export default index
+export default Index
