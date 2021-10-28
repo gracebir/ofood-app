@@ -9,6 +9,9 @@ module.exports = {
           yellow: "#F4C10B",
         },
       },
+      backgroundImage: {
+        'hero-pattern': "url('./asset/hero.jpg')",
+       }
     },
   },
   variants: {

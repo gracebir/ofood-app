@@ -7,3 +7,7 @@
         @apply cursor-pointer hover:underline;
     }
 }
+
+body{
+    background-color: #1a1a1a;
+}
