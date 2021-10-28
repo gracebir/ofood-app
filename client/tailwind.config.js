@@ -2,7 +2,14 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        ofood_dark: {
+          light: "#1A1A1A",
+          yellow: "#F4C10B",
+        },
+      },
+    },
   },
   variants: {
     extend: {},

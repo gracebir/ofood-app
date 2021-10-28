@@ -1,11 +1,11 @@
 import React from 'react';
-
+import NavBar from './components/navbar';
 
 
 function App() {
   return (
-    <div className="mx-auto">
-      <h1 className="text-center font-semibold">je suis un auto</h1>
+    <div>
+      <NavBar/>
     </div>
   );
 }
