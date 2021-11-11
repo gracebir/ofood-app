@@ -9,6 +9,8 @@ import {
      SidebarRoute
      } from './SidebarElement';
 
+import { BsCart } from 'react-icons/bs'
+
 function index({ isOpen, toggle}) {
     return (
         <SidebarContent isOpen={isOpen} onClick={toggle}>
@@ -16,12 +18,12 @@ function index({ isOpen, toggle}) {
                 <CloseIcon/>
             </Icon>
             <SidebarMenu>
-                <SidebarLink to="/">Pizza</SidebarLink>
-                <SidebarLink to="/">Desserts</SidebarLink>
-                <SidebarLink to="/">Full Menu</SidebarLink>
+                <SidebarLink to="#pizza">Pizza</SidebarLink>
+                <SidebarLink to="#dessert">Desserts</SidebarLink>
+                <SidebarLink to="/checkout">0 <BsCart/></SidebarLink>
             </SidebarMenu>
             <SideBtnWrap>
-                <SidebarRoute to="/">Order Now</SidebarRoute>
+                <SidebarRoute to="#pizza">Order Now</SidebarRoute>
             </SideBtnWrap>
         </SidebarContent>
     )

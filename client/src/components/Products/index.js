@@ -12,9 +12,9 @@ import {
   ProductButton
  } from './ProductElement';
 
-function Products({heading, data}) {
+function ProductsCheckout({heading, data}) {
     return (
-        <ProductsContainer>
+        <ProductsContainer id='pizza'>
         <ProductsHeading>{heading}</ProductsHeading>
         <ProductWrapper>
           {data.map((product, index) => {
@@ -35,4 +35,4 @@ function Products({heading, data}) {
     )
 }
 
-export default Products
+export default ProductsCheckout

@@ -1,0 +1,8 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server side",
+  "main": "main.js",
+  "author": "psprogrammer",
+  "license": "MIT"
+}
