@@ -1,4 +1,5 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 import { 
   ProductsContainer,
   ProductWrapper,
@@ -13,6 +14,7 @@ import {
  } from './ProductElement';
 
 function ProductsCheckout({heading, data}) {
+  const history = useHistory()
     return (
         <ProductsContainer id='pizza'>
         <ProductsHeading>{heading}</ProductsHeading>
@@ -25,7 +27,7 @@ function ProductsCheckout({heading, data}) {
                   <ProductTitle>{product.name}</ProductTitle>
                   <ProductDesc>{product.desc}</ProductDesc>
                   <ProductPrice>{product.price}</ProductPrice>
-                  <ProductButton>{product.button}</ProductButton>
+                  <ProductButton onClick={()=>history.push('/cardItem')}>{product.button}</ProductButton>
                 </ProductInfo>
               </ProductCard>
             );
