@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Link} from 'react-router-dom';
+import Cards from './components/Cards';
 import Product from './components/Product';
-import Checkout from './components/Checkout';
 
 function App() {
 
@@ -41,6 +41,7 @@ function App() {
       <main className="main">
         <div className="content">
             <Route exact={true} path='/' component={Product}/>
+            {/* <Route path='/cart' component={Cards}/> */}
         </div>
       </main>
       <footer className="footer">All right reserved.</footer>
