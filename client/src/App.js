@@ -6,11 +6,13 @@ import Product from './components/Product';
 import ProductScreen from './components/Products/detailsProduct';
 import SignInScreen from './components/user/login';
 import RegisterScreen from './components/user/register';
+import Routes from './admin';
 
 const AppRoutes = ()=>{
   return (
       <div>
       <Switch>
+        <Route path='/admin' component={Routes}/>
         <Route path='/register' component={RegisterScreen}/>
         <Route path='/login' component={SignInScreen}/>
         <Nav>
