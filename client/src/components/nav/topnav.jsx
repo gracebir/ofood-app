@@ -1,6 +1,13 @@
-import React from 'react'
+import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default function Nav({children}) {
+    const openMenu = ()=>{
+        document.querySelector('.sidebar').classList.add('open');
+      }
+      const closeMenu = ()=>{
+        document.querySelector('.sidebar').classList.remove('open')
+      }
     return (
     <div className="grid-container">
       <header className="header">

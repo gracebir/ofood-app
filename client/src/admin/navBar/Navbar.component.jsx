@@ -1,22 +1,16 @@
 import React from 'react';
 import './Navbar.component.css';
-import {NotificationsNone, Language, Settings } from '@material-ui/icons';
+import { Avatar, Popover } from 'antd';
+import { Settings } from '@mui/icons-material';
 import SideBar from '../sideBar/sideBar.component';
-import { useSelector } from 'react-redux';
-import {CloudImg} from '../../Utils/image';
-import Avatar from '@material-ui/core/Avatar';
-import { Popover } from 'antd';
-import { checkToken } from '../../redux/actions/userAction';
 
 
 export default function Navbar({children}) {
-    const { data } = useSelector(({ users: { currentUser } }) =>currentUser);
-
     const disconnect = () =>{
         localStorage.removeItem('auth-token');
         window.location.replace('/login');
     }
-    checkToken()
+
     const content = (
         <div>
           <p>Profile</p>
@@ -32,19 +26,10 @@ export default function Navbar({children}) {
                     </div>
                     <div className="navRight">
                         <div className="navbarIconsContainer">
-                            <NotificationsNone/>
-                            <span className="iconBag">3</span>
-                        </div>
-                        <div className="navbarIconsContainer">
-                            <Language/>
-                            <span className="iconBag">2</span>
-                        </div>
-                        <div className="navbarIconsContainer">
                             <Settings/>
                         </div>
-                        <Popover placement='bottomRight' content={content} title={ <h2> {data.fsname} {data.lsname} </h2> } trigger="click">
+                        <Popover placement='bottomRight' content={content} title={ <h2> Ibrahim Bagalwa</h2> } trigger="click">
                         <Avatar children={<img src={`https://ms-backapp.herokuapp.com/resource/${data.avatar}`} alt={data.fsname} className="avatar"/>} />
-                            {/* <Avatar alt={data.fsname} children={<CloudImg className="avatar" publicId={data.avatar} />} /> */}
                         </Popover>
                     </div>
                 </div>

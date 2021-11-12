@@ -1,21 +1,10 @@
-import { Avatar } from '@material-ui/core';
-import React, {useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getLatestUsers } from '../../redux/actions/userAction';
+import React from 'react';
 import './widgetLg.component.css';
-
+import product2 from '../../assets/product-2.jpg'
+import { Avatar } from 'antd';
 
 export default function WidgetLg(props) {
-    const {data, loading} = useSelector(({users: {latest}})=>latest);
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        getLatestUsers(dispatch)
-    
-    }, [dispatch])
-    
    
-       
     return(
         <div className="widgetLg">
           <h3 className="widgetLgTitle">Top 5 d'Agents les plus Monnayer </h3>
@@ -29,20 +18,16 @@ export default function WidgetLg(props) {
               </tr>
             </thead>
             <tbody>
-                {
-                    data.map((user)=>(
-                    <>
-                        <tr className="widgetLgTr" key={user.id}>
-                            <td className="widgetLgUser">
-                                <Avatar className="avatar-userList" children={<img src={`https://ms-backapp.herokuapp.com/resource/${user.avatar}`}className="avatar"/>} /> {user.fsname} { user.lsname }
-                            </td>
-                            <td className="widgetDate">{user.createdon}</td> 
-                            <td className="widgetAmount">{user.solde}</td> 
-                            <td className="widgetStatus">{user.phone}</td> 
-                        </tr>  
-                    </>
-                    ))
-                }
+                <>
+                    <tr className="widgetLgTr">
+                        <td className="widgetLgUser">
+                            <Avatar className="avatar-userList" children={<img src={product2}className="avatar"/>} /> Ibrahim Bagalwa
+                        </td>
+                        <td className="widgetDate">le 12-23-2022</td> 
+                        <td className="widgetAmount">23</td> 
+                        <td className="widgetStatus">00000000000</td> 
+                    </tr>  
+                </>
             </tbody>   
           </table>
         </div>
