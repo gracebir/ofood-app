@@ -1,17 +1,13 @@
 {
-  "name": "backend-rdv",
+  "name": "server",
   "version": "1.0.0",
-  "description": "e-commerce",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node --exec babel-node ./src/bin/server.js",
     "dev": "nodemon --exec babel-node ./src/bin/server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "author": "IbrahimBagalwa || Batey_Josh",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "@babel/cli": "^7.16.0",
