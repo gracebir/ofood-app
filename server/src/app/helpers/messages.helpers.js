@@ -1,5 +1,5 @@
 export const successMessages ={
-    welcome:' Welcome dans notre site de rencontres',
+    welcome:' Welcome dans notre site de vente en ligne',
     accountCreate : "Votre compte a été créé avec success !",
     loginSuccess : "Connecté avec succès!",
     loggedOut : "Déconnecté avec succès!",
