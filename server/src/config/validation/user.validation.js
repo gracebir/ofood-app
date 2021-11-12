@@ -1,10 +1,10 @@
 import joi from 'joi';
-import { errorMessages } from '../../app/helpers/message.helpers';
-import { sendErrorResponse, SendSuccessResponse } from '../../app/helpers/response.helpers';
-import { failureCodes } from '../../app/helpers/statusCodes.helpers';
+import { errorMessages } from '../../app/helpers/messages.helpers';
+import { sendErrorResponse, sendSuccessResponse } from '../../app/helpers/responses.helpers';
+import { failluresCodes } from '../../app/helpers/statusCodes.helpers';
 import db from '../../app/models';
 
-const {badRequest} = failureCodes;
+const {badRequest} = failluresCodes;
 const {duplicatedEmail, duplicatedPhone, fieldValidation} = errorMessages;
 
 const userValidations ={
@@ -16,7 +16,7 @@ const userValidations ={
         })
         const {error} = schema.validate(req.body);
         if(error){
-            return SendSuccessResponse(res, badRequest, `${error.details[0].message}`)
+            return sendSuccessResponse(res, badRequest, `${error.details[0].message}`)
         }
         const checkPhone = await db.User.findOne({
             where:{

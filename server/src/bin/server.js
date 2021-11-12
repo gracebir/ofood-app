@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
+import routes from '../config/routes';
 import { sendSuccessResponse } from '../app/helpers/responses.helpers';
 import { successCodes, failluresCodes } from '../app/helpers/statusCodes.helpers';
 import { successMessages } from '../app/helpers/messages.helpers';
@@ -11,8 +12,9 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use('/api', routes);
 
 const {ok} = successCodes;
 const {welcome} = successMessages;

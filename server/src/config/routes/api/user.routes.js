@@ -1,6 +1,6 @@
 import express from 'express';
-import ctrl from '../../../app/controllers/user.controller';
-import validation from '../../validations/user.validations';
+import ctrl from '../../../app/controllers/user.controler';
+import validation from '../../validation/user.validation';
 
 const route = express.Router()
 

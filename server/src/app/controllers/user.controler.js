@@ -1,6 +1,6 @@
 
 import db from '../models';
-import dateFormat from 'dataformat';
+// import dateFormat from 'dateformat';
 import dotenv from 'dotenv';
 import { encryptPassword, isPasswordTrue } from '../helpers/passwordEncDec.helpers';
 import { errorMessages, successMessages } from '../helpers/messages.helpers';
@@ -10,32 +10,30 @@ import {generateToken} from '../helpers/token.helpers';
 import bcrypt from 'bcrypt';
 
 dotenv.config();
-const {ok} = successCodes;
-const {recordFound} = successMessages;
-const {noRecordFound, interError} = errorMessages;
-const {notFound, internalServerError} = failluresCodes;
+const {ok, created} = successCodes;
+const {recordFound,accountCreate, loginSuccess,updateSuccess} = successMessages;
+const {noRecordFound, interError,accountFailedToCreate, loginFail,fieldValidation,updateFail} = errorMessages;
+const {notFound, internalServerError,badRequest,unAuthorized, forbidden} = failluresCodes;
 
 export default {
     register: async(req, res)=>{
         const {fsname, lsname, email, phone,avatar, datastatus} = req.body;
         console.log(req.body)
-        const now = new Date();
-        const createOn = dateFormat('yyyy-MM-dd hh:mm:ss', now);
-        const randPass = Math.round(Math.random() * (80000000) + 10000000);
-        const password = await encryptPassword(randPass.toString());
+        // const now = new Date();
+        // const createOn = dateFormat('yyyy-MM-dd hh:mm:ss', now);
+        // const randPass = Math.round(Math.random() * (80000000) + 10000000);
+        // const password = await encryptPassword(randPass.toString());
         try {      
             const isCreated = await db.User.create({
                 fsname,
                 lsname,
                 email,
                 phone,
-                password:password,
+                password,
                 avatar,
                 datastatus: process.env.AP_ACTIVE
             });
             if(isCreated){
-                console.log(randPass)
-                isCreated.password = randPass;
                 sendSuccessResponse(res, created, accountCreate, generateToken(JSON.stringify(isCreated.id)), isCreated);
             } 
             else sendErrorResponse(res, badRequest, accountFailedToCreate)
