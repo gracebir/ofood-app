@@ -1,6 +1,8 @@
 import {BrowserRouter, Route, Link} from 'react-router-dom';
 import Cards from './components/Cards';
 import Product from './components/Product';
+import ProductScreen from './components/Products/detailsProduct';
+import SignInScreen from './components/user/login';
 import RegisterScreen from './components/user/register';
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
   }
   return (
     <BrowserRouter>
+
     <div className="grid-container">
       <header className="header">
           <div className="brand">
@@ -23,7 +26,7 @@ function App() {
           </div>
           <div className="header-links">
               <Link to='/cart'>Cart</Link>
-              <Link to="/signIn">Sign-In</Link>
+              <Link to="/login">Sign-In</Link>
           </div>
       </header>
       <aside className="sidebar">
@@ -42,7 +45,9 @@ function App() {
       <main className="main">
         <div className="content">
             <Route exact={true} path='/' component={Product}/>
-            <Route path='/register' compone={RegisterScreen}/>
+            <Route path='/register' component={RegisterScreen}/>
+            <Route path='/login' component={SignInScreen}/>
+            <Route path="/detailProduct/:id" component={ProductScreen}/>
         </div>
       </main>
       <footer className="footer">All right reserved.</footer>

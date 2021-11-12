@@ -21,13 +21,13 @@ function ProductsCheckout({heading, data}) {
         <ProductWrapper>
           {data.map((product, index) => {
             return (
-              <ProductCard key={index}>
+              <ProductCard key={index} onClick={()=>history.push('/detailProduct/'+ product.id)}>
                 <ProductImg src={product.img} alt={product.alt} />
                 <ProductInfo>
                   <ProductTitle>{product.name}</ProductTitle>
                   <ProductDesc>{product.desc}</ProductDesc>
                   <ProductPrice>{product.price}</ProductPrice>
-                  <ProductButton onClick={()=>history.push('/cardItem')}>{product.button}</ProductButton>
+                  <ProductButton onClick={()=>history.push('/detailProduct/'+ product.id)}>{product.button}</ProductButton>
                 </ProductInfo>
               </ProductCard>
             );

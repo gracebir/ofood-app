@@ -45,7 +45,7 @@ function RegisterScreen(props) {
                              <button type="submit" className="button primary">Register</button>
                          </li>
                          <li>
-                             All ready have account to somba? <Link to='/signin'>Sign-in</Link>
+                             All ready have account to somba? <Link to='/login'>Sign-in</Link>
                          </li>
                      </ul>
                  </form>
