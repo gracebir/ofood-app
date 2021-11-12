@@ -34,7 +34,7 @@ export default {
             if(isCreated){
                 console.log(randPass)
                 isCreated.password = randPass;
-                SendSuccessResponse(res, created, accountCreate, generateToken(JSON.stringify(isCreated.id)), isCreated);
+                sendSuccessResponse(res, created, accountCreate, generateToken(JSON.stringify(isCreated.id)), isCreated);
             } 
             else sendErrorResponse(res, badRequest, accountFailedToCreate)
         } catch (error) {
@@ -54,8 +54,8 @@ export default {
                     })
                     if(isSignIn){
                         bcrypt.compare(password, isSignIn.password, (err, result)=>{
-                            if(result) SendSuccessResponse(res, ok, loginSuccess, generateToken(JSON.stringify(isSignIn.id)),isSignIn);
-                            else SendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password:req.body.password});
+                            if(result) sendSuccessResponse(res, ok, loginSuccess, generateToken(JSON.stringify(isSignIn.id)),isSignIn);
+                            else sendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password:req.body.password});
                         })
                     }
                 }else if(phone){
@@ -67,10 +67,10 @@ export default {
                     })
                     if(isSignIn){
                         bcrypt.compare(password, isSignIn.password, (err, result)=>{
-                            if(result) SendSuccessResponse(res, ok, loginSuccess, generateToken(JSON.stringify(isSignIn.id)),isSignIn);
-                            else SendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password:req.body.password});
+                            if(result) sendSuccessResponse(res, ok, loginSuccess, generateToken(JSON.stringify(isSignIn.id)),isSignIn);
+                            else sendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password:req.body.password});
                         })
-                    }else SendSuccessResponse(res, forbidden, loginFail, null,{email: req.body.email, password:req.body.password})
+                    }else sendSuccessResponse(res, forbidden, loginFail, null,{email: req.body.email, password:req.body.password})
                 }
             } else sendErrorResponse(res,forbidden, fieldValidation)
         } catch (error) {
@@ -84,7 +84,7 @@ export default {
                 include: ['TODO']
             })
             if(viewAll){
-                SendSuccessResponse(res, ok, recordFound, null, viewAll)
+                sendSuccessResponse(res, ok, recordFound, null, viewAll)
             }else{
                 sendErrorResponse(res, notFound, noRecordFound)
             }
@@ -106,7 +106,7 @@ export default {
                 phone: phone || user.phone,
                 datastatus: datastatus || user.datastatus
             })
-            if(isUpdated) SendSuccessResponse(res, ok, updateSuccess, null, isUpdated);
+            if(isUpdated) sendSuccessResponse(res, ok, updateSuccess, null, isUpdated);
             else sendErrorResponse(res, badRequest, updateFail)
         } catch (error) {
             sendErrorResponse(res, internalServerError, interError)
@@ -118,7 +118,7 @@ export default {
             const isDone = await db.User.findOne({
                 where: {id: id}
             })
-            if(isDone) SendSuccessResponse(res, ok, recordFound, null, isDone);
+            if(isDone) sendSuccessResponse(res, ok, recordFound, null, isDone);
             else sendErrorResponse(res, notFound, noRecordFound);
         } catch (error) {
             sendErrorResponse(res, internalServerError, interError);
