@@ -17,7 +17,7 @@ const {notFound, internalServerError} = failluresCodes;
 
 export default {
     register: async(req, res)=>{
-        const {username, email, phone, datastatus} = req.body;
+        const {fsname, lsname, email, phone,avatar, datastatus} = req.body;
         console.log(req.body)
         const now = new Date();
         const createOn = dateFormat('yyyy-MM-dd hh:mm:ss', now);
@@ -25,10 +25,12 @@ export default {
         const password = await encryptPassword(randPass.toString());
         try {      
             const isCreated = await db.User.create({
-                username,
+                fsname,
+                lsname,
                 email,
                 phone,
                 password:password,
+                avatar,
                 datastatus: process.env.AP_ACTIVE
             });
             if(isCreated){
@@ -95,13 +97,14 @@ export default {
     },
     update: async(req, res)=>{
         const id = req.params.id;
-        const {username, email, phone, datastatus} = req.body;
+        const {fsname, lsname, email, phone,avatar, datastatus} = req.body;
         try {
             const user = await db.User.findOne({
                 where: {id:id}
             })
             const isUpdated = await user.update({
-                username: username || user.username,
+                fsname: fsname || user.fsname,
+                lsname: lsname || user.lsname,
                 email: email || user.email,
                 phone: phone || user.phone,
                 datastatus: datastatus || user.datastatus
