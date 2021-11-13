@@ -7,6 +7,7 @@ import { sendErrorResponse, sendSuccessResponse } from '../helpers/responses.hel
 import { failluresCodes, successCodes } from '../helpers/statusCodes.helpers';
 import {generateToken} from '../helpers/token.helpers';
 import bcrypt from 'bcrypt';
+import { isPasswordTrue } from '../helpers/passwordEncDec.helpers';
 
 dotenv.config();
 const {ok, created,noContent} = successCodes;
@@ -43,37 +44,29 @@ export default {
         }
     },
     login: async(req, res)=>{
-        const {password, email, phone} = req.body;
+
+
+        const { password, email, phone } = req.body;
+        if(!password || !email ) return sendErrorResponse(res, unAuthorized, fieldValidation)
         try {
-            if(email || phone && password){            
-                if(email){
-                    const isSignIn = await db.User.findOne({
-                        where: {
-                            email:email,
-                            datastatus: process.env.DEACTIVED
-                        }
-                    })
-                    if(isSignIn){
-                        bcrypt.compare(password, isSignIn.password, (err, result)=>{
-                            if(result) sendSuccessResponse(res, ok, loginSuccess, generateToken(JSON.stringify(isSignIn.id)),isSignIn);
-                            else sendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password:req.body.password});
-                        })
-                    }
-                }else if(phone){
-                    const isSignIn = await db.User.findOne({
-                        where: {
-                            phone:phone,
-                            datastatus: process.env.DEACTIVED
-                        }
-                    })
-                    if(isSignIn){
-                        bcrypt.compare(password, isSignIn.password, (err, result)=>{
-                            if(result) sendSuccessResponse(res, ok, loginSuccess, generateToken(JSON.stringify(isSignIn.id)),isSignIn);
-                            else sendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password:req.body.password});
-                        })
-                    }else sendSuccessResponse(res, forbidden, loginFail, null,{email: req.body.email, password:req.body.password})
+            await db.User.findOne({
+                where: {
+                    email: email.trim()
                 }
-            } else sendErrorResponse(res,forbidden, fieldValidation)
+            })
+            .then(user => {
+                if(user instanceof User){
+                    isPasswordTrue(password, user.password, (rejected, resolved) => {
+                        if(resolved) { 
+                            sendSuccessResponse(res, ok, loginSuccess, generateToken(JSON.stringify(resolved.id)),resolved)
+                        }
+                        else return sendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password:req.body.password});
+                    })
+                }else return sendSuccessResponse(res, forbidden, loginFail, null,{email: req.body.email, password:req.body.password})
+            })
+            .catch(err => {
+                sendErrorResponse(res,forbidden, fieldValidation);
+            })
         } catch (error) {
             sendErrorResponse(res, internalServerError, interError);
         }
