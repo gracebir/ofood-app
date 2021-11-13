@@ -1,0 +1,51 @@
+.stat
+{
+    width: 50%;
+    height: 70vh;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.stat-card
+{
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(204, 204, 204, 0.4);
+    text-align: center;
+}
+.stat-card h1
+{
+    margin-bottom: 0px;
+}
+.stat-card:nth-child(1) h1
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: green;
+}
+.stat-card:nth-child(2) h1
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: chocolate;
+}
+.stat-card:nth-child(3) h1
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(0, 140, 255);
+}
+.stat-card:nth-child(4) h1
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(255, 230, 0);
+}
+.stat-icon
+{
+    max-width: 50px;
+    transform: scale(2);
+}

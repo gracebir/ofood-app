@@ -2,7 +2,6 @@
 import db from '../models';
 // import dateFormat from 'dateformat';
 import dotenv from 'dotenv';
-import { encryptPassword, isPasswordTrue } from '../helpers/passwordEncDec.helpers';
 import { errorMessages, successMessages } from '../helpers/messages.helpers';
 import { sendErrorResponse, sendSuccessResponse } from '../helpers/responses.helpers';
 import { failluresCodes, successCodes } from '../helpers/statusCodes.helpers';
@@ -10,28 +9,30 @@ import {generateToken} from '../helpers/token.helpers';
 import bcrypt from 'bcrypt';
 
 dotenv.config();
-const {ok, created} = successCodes;
+const {ok, created,noContent} = successCodes;
 const {recordFound,accountCreate, loginSuccess,updateSuccess} = successMessages;
 const {noRecordFound, interError,accountFailedToCreate, loginFail,fieldValidation,updateFail} = errorMessages;
 const {notFound, internalServerError,badRequest,unAuthorized, forbidden} = failluresCodes;
 
 export default {
     register: async(req, res)=>{
-        const {fsname, lsname, email, phone,avatar, datastatus} = req.body;
+        let {fsname, lsname, email, phone,avatar, password, datastatus, role} = req.body;
         console.log(req.body)
-        // const now = new Date();
-        // const createOn = dateFormat('yyyy-MM-dd hh:mm:ss', now);
-        // const randPass = Math.round(Math.random() * (80000000) + 10000000);
-        // const password = await encryptPassword(randPass.toString());
+        if(!fsname || !lsname || !email || !phone || !password || !avatar) return sendErrorResponse(res,unAuthorized,fieldValidation)
+        // hash the password
+        const salt = await bcrypt.genSalt();
+        const passwordHash = await bcrypt.hash(password, salt);
+
         try {      
             const isCreated = await db.User.create({
                 fsname,
                 lsname,
                 email,
                 phone,
-                password,
+                password:passwordHash,
                 avatar,
-                datastatus: process.env.AP_ACTIVE
+                datastatus: process.env.STATUS,
+                role: process.env.DEACTIVED
             });
             if(isCreated){
                 sendSuccessResponse(res, created, accountCreate, generateToken(JSON.stringify(isCreated.id)), isCreated);
@@ -49,7 +50,7 @@ export default {
                     const isSignIn = await db.User.findOne({
                         where: {
                             email:email,
-                            datastatus: process.env.AP_ACTIVE
+                            datastatus: process.env.DEACTIVED
                         }
                     })
                     if(isSignIn){
@@ -62,7 +63,7 @@ export default {
                     const isSignIn = await db.User.findOne({
                         where: {
                             phone:phone,
-                            datastatus: process.env.AP_ACTIVE
+                            datastatus: process.env.DEACTIVED
                         }
                     })
                     if(isSignIn){
@@ -80,10 +81,9 @@ export default {
     view: async(req, res)=>{
         try {
             const viewAll = await db.User.findAll({
-                where:{datastatus:process.env.AP_ACTIVE},
-                include: ['TODO']
+                where:{datastatus:process.env.DEACTIVED},
             })
-            if(viewAll){
+            if(viewAll.length !==0){
                 sendSuccessResponse(res, ok, recordFound, null, viewAll)
             }else{
                 sendErrorResponse(res, notFound, noRecordFound)

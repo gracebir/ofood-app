@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const {
-  DB_NAME, DB_PORT, DB_HOST, DB_USER, DB_PASSWORD,URL_TEST
+  DB_NAME, DB_PORT, DB_HOST, DB_USER, DB_PASSWORD,R_URL
 } = process.env
 module.exports={
   development:{
@@ -13,7 +13,7 @@ module.exports={
     dialect: 'mysql'
   },
   test:{
-    url: URL_TEST,
+    url: R_URL,
     dialect:'mysql'
   },
   production: {

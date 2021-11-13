@@ -12,9 +12,9 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
+app.use(express.urlencoded({extended:false}));
+
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use('/api', routes);
 
 const {ok} = successCodes;
 const {welcome} = successMessages;
@@ -25,12 +25,12 @@ app.get('/', (req,res)=>{
     sendSuccessResponse(res, ok, welcome, null, null)
 })
 
+app.use('/api', routes);
 app.use('*',(req,res)=>{
 
     sendSuccessResponse(res, notFound, `${req.method}=${req.protocol}://${req.headers.host}${req.originalUrl} not found`)
 })
-
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3700;
 
 app.listen(port,()=>{
     console.log(`server run on port ${port}...`)

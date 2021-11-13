@@ -1,34 +1,51 @@
 
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
 import Nav from './components/nav/topnav';
 import Product from './components/Product';
 import ProductScreen from './components/Products/detailsProduct';
 import SignInScreen from './components/user/login';
 import RegisterScreen from './components/user/register';
-import Routes from './admin';
+import Stats  from './components/admin/Overview/dash';
+import NotFound  from './helpers/404';
+import Overview from './components/admin/Overview';
+import { AdminRoute } from './routes/protectedRoute';
 
 const AppRoutes = ()=>{
   return (
       <div>
       <Switch>
-        <Route path='/admin' component={Routes}/>
-        <Route path='/register' component={RegisterScreen}/>
-        <Route path='/login' component={SignInScreen}/>
+        <Route key="signup" exact path="/register" render={() =><RegisterScreen />} />
+        <Route key="login" path="/login" render={() =><SignInScreen />} />
+        
+        <Route path="/admin">
+            <Overview>
+                <Switch>
+                    <AdminRoute key="admin-home" exact path="/admin" component={Stats}/>
+                </Switch>
+            </Overview>
+        </Route>
+
         <Nav>
-          <Route exact={true} path='/' component={Product}/>
-          <Route path="/detailProduct/:id" component={ProductScreen}/>
+            <Switch>
+                <Route key="home" exact path="/" render={() => <Product />}/>
+                <Route key="result" exact path="/search-menus" render={() => <ProductScreen />}/>
+                <Route path="*">
+                    <NotFound />
+                </Route>
+            </Switch>
         </Nav>
-      </Switch>
+        
+    </Switch>
       </div>
   )
 }
 function App() {
   return(
-    <>
-      <Router>
-        <AppRoutes />
-      </Router>
+    <>  
+    <Router>
+      <AppRoutes/>
+    </Router>
     </>
   )
 }

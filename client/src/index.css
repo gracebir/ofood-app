@@ -137,7 +137,7 @@ a:hover{
     color: #ffffff;
     cursor: pointer;
 }
-.sidebar{
+.side{
     position: fixed;
     transform: translateX(-30rem);
     transition: all .5s;
@@ -145,7 +145,7 @@ a:hover{
     background-color: #f0f0f0;
     height: 100%;
 }
-.sidebar.open{
+.side.open{
     transform: translateX(0);
 }
 .sidebar-links{

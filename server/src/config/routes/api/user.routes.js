@@ -5,7 +5,7 @@ import validation from '../../validation/user.validation';
 const route = express.Router()
 
 route
-    .post('/register', validation.register, ctrl.register)
+    .post('/register', ctrl.register)
     .post('/login', ctrl.login)
     .get('/all', ctrl.view)
     .put('update-user',validation.update, ctrl.update)
