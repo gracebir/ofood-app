@@ -17,9 +17,9 @@ const {notFound, internalServerError,badRequest,unAuthorized, forbidden} = faill
 export default {
     register: async(req, res)=>{
         let {fsname, lsname, email, phone,avatar, password, datastatus, role} = req.body;
-        console.log(req.body)
+        console.log(req.body);
         if(!fsname || !lsname || !email || !phone || !password || !avatar) return sendErrorResponse(res,unAuthorized,fieldValidation)
-        // hash the password
+       // hash the password
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
 
@@ -39,6 +39,7 @@ export default {
             } 
             else sendErrorResponse(res, badRequest, accountFailedToCreate)
         } catch (error) {
+            console.log(error)
             sendErrorResponse(res, internalServerError, interError )
         }
     },
@@ -50,9 +51,11 @@ export default {
                     const isSignIn = await db.User.findOne({
                         where: {
                             email:email,
-                            datastatus: process.env.DEACTIVED
+                            password:password,
+                            datastatus: process.env.STATUS
                         }
                     })
+                    
                     if(isSignIn){
                         bcrypt.compare(password, isSignIn.password, (err, result)=>{
                             if(result) sendSuccessResponse(res, ok, loginSuccess, generateToken(JSON.stringify(isSignIn.id)),isSignIn);
@@ -63,7 +66,7 @@ export default {
                     const isSignIn = await db.User.findOne({
                         where: {
                             phone:phone,
-                            datastatus: process.env.DEACTIVED
+                            datastatus: process.env.STATUS
                         }
                     })
                     if(isSignIn){
@@ -75,6 +78,7 @@ export default {
                 }
             } else sendErrorResponse(res,forbidden, fieldValidation)
         } catch (error) {
+            console.log(error)
             sendErrorResponse(res, internalServerError, interError);
         }
     },
