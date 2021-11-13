@@ -21,7 +21,7 @@ const AppRoutes = ()=>{
         <Route path="/admin">
             <Overview>
                 <Switch>
-                    <AdminRoute key="admin-home" exact path="/admin" component={Stats}/>
+                  <AdminRoute key="admin-home" exact path="/admin" component={Stats}/>
                 </Switch>
             </Overview>
         </Route>
@@ -31,7 +31,7 @@ const AppRoutes = ()=>{
                 <Route key="home" exact path="/" render={() => <Product />}/>
                 <Route key="result" exact path="/search-menus" render={() => <ProductScreen />}/>
                 <Route path="*">
-                    <NotFound />
+                  <NotFound />
                 </Route>
             </Switch>
         </Nav>

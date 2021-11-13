@@ -11,7 +11,7 @@ export default function Stats(){
                 <div>Utilisateurs actifs</div>
             </div>
             <div data-aos="fade-up" className="stat-card" style={{ width: 200 }}>
-                <DollarCircleOutlined className="stat-icon"/>DashboardOutlined
+                <DollarCircleOutlined className="stat-icon"/>
                 <h1>{0}</h1>
                 <div>Commandes</div>
             </div>

@@ -27,10 +27,10 @@ export default function Nav({children}) {
         <button className="sidebar-close-button" onClick={closeMenu}>x</button>
         <ul className="sidebar-links">
             <li>
-                <a href="index.html">Pizza</a> 
+                <Link to='/'>Pizza</Link> 
             </li>
             <li>
-                <a href="index.html">Desserts</a> 
+                <Link to='/'>Desserts</Link> 
             </li>
         </ul>
        </aside>

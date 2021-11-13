@@ -6,7 +6,7 @@ function Index() {
       <HeroContainer>
           <HeroContent>
               <HeroItems>
-                  <HeroH1>Greatest Food Ever</HeroH1>
+                  <HeroH1 style={{color:'white'}}>Greatest Food Ever</HeroH1>
                   <HeroP>Ready in 60 seconds</HeroP>
                   <HeroBtn>Place Order</HeroBtn>
               </HeroItems>

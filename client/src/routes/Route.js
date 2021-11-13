@@ -19,18 +19,19 @@ export function Routes(){
                 <Route key="login" path="/login" render={() =><SignInScreen />} />
 
                 <Route path="/admin">
-                    {/* <Overview> */}
+                    <Overview>
                         <Switch>
                             <AdminRoute key="admin-home" exact path="/admin" component={Stats}/>
+                            <Route path="*"><NotFound/></Route>
                         </Switch>
-                    {/* </Overview> */}
+                    </Overview>
                 </Route>
 
                 <Nav>
                     <Switch>
                         <Route key="home" exact path="/" render={() => <Product />}/>
                         <Route key="result" exact path="/search-menus" render={() => <ProductScreen />}/>
-                        {/* <Route path="*"><NotFound/></Route> */}
+                        <Route path="*"><NotFound/></Route>
                     </Switch>
                 </Nav>
                 
