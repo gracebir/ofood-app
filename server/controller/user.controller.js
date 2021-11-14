@@ -78,7 +78,7 @@ export default {
     },
     signIn: async (req, res ) => {
         const { pwd, email } = req.body;
-        console.log(phone);
+        console.log(email);
         await User.findOne({
             where: {
                 email: email,

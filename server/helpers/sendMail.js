@@ -12,7 +12,7 @@ const prepareEmailConfigs = (mailData) => {
   const { MAIL_NAME, MAIL_PASSWORD } = process.env;
 
   const mailConfigs = {
-    from: 'Mille Services TransPay👻'+ MAIL_NAME,
+    from: 'Somba Food👻'+ MAIL_NAME,
     to: mailSentTo,
     subject: mailSubject,
     html: contentHTML,

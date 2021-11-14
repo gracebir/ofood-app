@@ -5,10 +5,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 const app = express();
-import router from './routes/index,js';
+import router from './routes/index.js';
 import  UploadedFile  from 'express-fileupload';
 import cors from 'cors';
-import { Server } from 'http';
 
 dotenv.config();
 

@@ -1,19 +1,19 @@
-const sendPasswordEmailHTML = (fsname, lsname, pwd, phone)=>`
+const sendPasswordEmailHTML = (fsname, lsname, pwd, email)=>`
 
 <div style="width: 80%; margin: 0 auto; font-family: sans-serif;">
     <nav style="background-color: #517be6; padding: 0.1rem;">
-      <h1 style="text-align: center;">Mile Services TransPay veut  a besoin que vous vérifiiez votre adresse e-mail</h1>
+      <h1 style="text-align: center;">Somba Food veut  a besoin que vous vérifiiez votre adresse e-mail</h1>
     </nav>
 
     <div style="padding: 2rem;">
         <h2> Salut ${fsname} ${lsname} !</h2>
         <p>
-            Vous vous êtes récemment inscrit sur Mile Services TransPay (MSTP), nous vous avons envoyé cet email afin de vérifier si l'email que vous nous avez fourni est viable,
-            pour des raisons de sécurité et de meilleurs services que vous recevez de MSTP !
+            Vous vous êtes récemment inscrit sur Somba Food nous vous avons envoyé cet email afin de vérifier si l'email que vous nous avez fourni est viable,
+            pour des raisons de sécurité et de meilleurs services que vous recevez de Somba Food !
         </p>
 
         <p>
-            Gardez à l'esprit que vous devez toujours vous souvenir de votre Numero de telephone <h4>${phone}</h4>
+            Gardez à l'esprit que vous devez toujours vous souvenir de votre Numero de telephone <h4>${email}</h4>
             et le mot de passe <h4>${pwd}</h4> que vous venons d'envoyer  et ne le partagez avec personne d'autre !
         </p> 
 
@@ -24,43 +24,43 @@ const sendPasswordEmailHTML = (fsname, lsname, pwd, phone)=>`
       </div>
 
       <p>
-        Si vous ne vous êtes pas récemment inscrit au système de Mile Services TransPay,
+        Si vous ne vous êtes pas récemment inscrit au système de Somba Food,
         nous sommes désolés pour ce désagrément, ignorez cet e-mail !
       </p>
 
       <div>
         <p>Votre sincèrement,</p>
-        <p>Mile Services TransPay</p>
+        <p>Somba Food</p>
       </div>
 
       <footer style="background-color: #c4c4c4; padding: 0.1rem">
-        <p style="text-align: center; font-size: 0.8rem;">© 2021 <a href="#">MSTP</a>. Tous les droits sont réservés.</p>
+        <p style="text-align: center; font-size: 0.8rem;">© 2021 <a href="#">Somba Food</a>. Tous les droits sont réservés.</p>
       </footer>
   </div>
 `
 
 export const sendPasswordEmailContent = (userData) => {
-    const { fsname, lsname, pwd, phone } = userData;
-    const EmailContentHTML = sendPasswordEmailHTML(fsname, lsname, pwd,phone);
+    const { fsname, lsname, pwd, email } = userData;
+    const EmailContentHTML = sendPasswordEmailHTML(fsname, lsname, pwd,email);
   
     const EmailContentPlainText = `
-    Remarque : Mile Services veut  a besoin que vous vérifiiez votre adresse e-mail
+    Remarque : Somba veut  a besoin que vous vérifiiez votre adresse e-mail
   
       Salut ${fsname} ${lsname}!
   
       Vous vous êtes récemment inscrit sur Mile Services TransPay (MSTP), nous vous avons envoyé cet email afin de vérifier si l'email que vous nous avez fourni est viable,
-      pour des raisons de sécurité et de meilleurs services que vous recevez de MSTP !
+      pour des raisons de sécurité et de meilleurs services que vous recevez de Somba Food !
 
-      Gardez à l'esprit que vous devez toujours vous souvenir de votre Numero de telephone ${phone}
+      Gardez à l'esprit que vous devez toujours vous souvenir de votre address Mail ${email}
       et le mot de passe ${pwd} que vous venons d'envoyer  et ne le partagez avec personne d'autre !
   
       ${pwd}
   
-      Si vous ne vous êtes pas récemment inscrit au système de Mile Service TransPay,
+      Si vous ne vous êtes pas récemment inscrit au système de Somba Food,
       nous sommes désolés pour ce désagrément, ignorez cet e-mail !
   
       Votre sincèrement,
-      Mile Services TransPay
+      Somba Food
     `;
     return { EmailContentHTML, EmailContentPlainText };
   };
