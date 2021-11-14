@@ -1,6 +1,6 @@
 export const successMessages = {
     accountCreated: 'Votre compte a été créé avec success !',
-    cardCreated: 'la carte a été  avec success',
+    productCreated: 'the product is all ready create successfully',
     approveEmailAddressToAdmin: 'Félicitations !\n\nVotre transaction a été envoyée temporairement.!\n\nNous avons envoyé un e-mail à l\'administrateur système, veuillez attendre qu\'il valide votre transaction.',
     roleAssignedSuccess: 'Le rôle a été attribué avec succès !',
     loginSuccess: 'Connecté avec succès!',
