@@ -7,9 +7,9 @@ import onConnexion from "../services/connexion.js";
 
 
 const {created, ok} =successCodes;
-const {  unAuthorized,notFound, conflict,internalServerError,forbidden } = failureCodes;
-const { productCreated } = successMessages;
-const {  noRecordFound,loginFail,passwordFail, diplicated,updateFail,interError, userFailedToUpdate, userFailedToRetrait, userFailedToSolde, RetraitToUseAssignmentFail } = errorMessages;
+const {  notFound, conflict,internalServerError } = failureCodes;
+const { productCreated, recordFound,updateSuccess  } = successMessages;
+const {  noRecordFound, diplicated,updateFail,interError} = errorMessages;
 
 export default {
     registerProduct: async (req,res)=>{
@@ -45,6 +45,80 @@ export default {
             transaction.rollback();
             console.log(error);
             sendSuccessResponse(res, conflict, diplicated, null, error);
+        }
+    },
+    all: async (req, res)=>{
+        Product.findAll(
+            {
+                where: {
+                    datastatus: process.env.STATUS
+                    
+                }
+            }
+        )
+        .then((data)=>{
+            if(data){
+                sendSuccessResponse(res,ok,recordFound,null, data);
+            }else{
+                sendErrorResponse(res, notFound, noRecordFound);
+            }
+        })
+    },
+    getBy : async (req, res)=>{
+        const id = req.params.id;
+        Product.findOne({where:{id:id}})
+        .then((data)=>{
+            if(data){
+                sendSuccessResponse(res, ok, recordFound, null, data);
+            }else{
+                sendErrorResponse(res,notFound,noRecordFound);
+            }
+        })
+    },
+    update : async (req,res)=>{
+        let id = req.params.id;
+        Product.update(req.body, {
+            where: {id:id}
+        })
+        .then((data)=>{
+            if(data){
+                sendSuccessResponse(res, ok, updateSuccess,null, data)
+            }else{
+                sendErrorResponse(res,internalServerError,updateFail)
+            }
+        })
+    },
+    delete : async (req,res)=>{
+        const id = req.params.id;
+        await Product.destroy(
+            {where: {id : id}})
+        .then((data)=>{
+            if(data === null){
+                res.status(500).json({msg:"Impossible de supprimer cet agent"})
+            }else{
+                res.status(200).json({msg:"suppression reussie",data})
+            }
+        })
+        .catch(err=>res.status(400).json({msg:"Erreur lors de la suppression",err}))
+    },
+    // function update sold user and client
+    search: async (req,res)=>{
+        const { query } = req.body;
+        try {
+            const product = await Product.findAndCountAll({
+                where: {
+                    [ Op.or ]: [
+                        { id_: {[ Op.substring ]: query} },
+                        { phone: { [ Op.substring ]: query } },
+                        {createdon: { [ Op.substring ]: query}},
+                    ]
+                }
+            })
+            if(product){
+                sendSuccessResponse(res, ok,recordFound,null,product);
+            }else sendErrorResponse(res, notFound, noRecordFound); 
+        } catch (error) {
+            sendErrorResponse(res,internalServerError,interError);
         }
     }
 }
