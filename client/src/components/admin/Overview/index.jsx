@@ -40,7 +40,7 @@ export default function Overview({children}) {
             Utilisateurs
           </Menu.Item>
           <Menu.Item key="3" onClick={() =>history.push("/admin/companys")} icon={<BankOutlined />}>
-            Restaurants
+            Ajouter un Produit
           </Menu.Item>
           <Menu.Item key="4" onClick={() =>history.push("/admin/orders")} icon={<DollarCircleOutlined />}>
             Commandes
