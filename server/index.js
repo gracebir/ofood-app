@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 const app = express();
-// import router from './routes/index,js';
+import router from './routes/index,js';
 import  UploadedFile  from 'express-fileupload';
 import cors from 'cors';
 import { Server } from 'http';
@@ -21,7 +21,7 @@ app.use(express.json({limit:'5mb'}));
 app.use(express.static('assets'));
 app.use(UploadedFile());
 
-// app.use('/api', router);
+app.use('/api', router);
 app.get('/', (req,res)=>{
     res.status(200).json({status:200, message:"Welcome to somba API"})
 })
