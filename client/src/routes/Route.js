@@ -11,6 +11,7 @@ import RegisterScreen from "../components/user/register";
 import NotFound  from "../helpers/404";
 import { AdminRoute } from "./protectedRoute";
 import CreateProduct from "../components/admin/pages/createProduct";
+import CartScreen from "../components/Cards/card";
 
 export function Routes(){
     return(<>
@@ -33,6 +34,7 @@ export function Routes(){
                     <Switch>
                         <Route key="home" exact path="/" render={() => <Product />}/>
                         <Route key="result" exact path="/detailProduct/:productId" render={() => <ProductScreen />}/>
+                        <Route key="cart" exact path="/cart/:id?" render={()=><CartScreen/>}/>
                         <Route path="*"><NotFound/></Route>
                     </Switch>
                 </Nav>
