@@ -1,11 +1,11 @@
-import { Avatar, Popover } from 'antd';
+import {Popover } from 'antd';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
 
 export default function Nav({children}) {
   const { data } = useSelector(({ users: { currentUser } }) =>currentUser);
-  const user = data
   const disconnect = () =>{
       localStorage.removeItem('authtoken');
       window.location.replace('/login');
@@ -34,10 +34,11 @@ export default function Nav({children}) {
         <div className="header-links">
             <Link to='/cart'>Cart</Link>
             {
-              user ?  
+              data ?  
               <Popover placement='bottomRight' content={content} title={ <h2> {data.fsname} {data.lsname} </h2> } trigger="click">
-                <Avatar children={<img src={`http://127.0.0.1/resource/${data.avatar}`} alt={data.fsname} className="avatar"/>} />
-              </Popover> :
+                <img src={data.avatar} alt={data.fsname} className="avatar"/>
+              </Popover> 
+              :
             <Link to="/login">Sign-In</Link>
             }
         </div>

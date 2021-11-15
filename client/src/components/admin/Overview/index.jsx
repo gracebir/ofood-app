@@ -7,10 +7,11 @@ import {
   DollarCircleOutlined,
 } from '@ant-design/icons';
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 
 export default function Overview({children}) {
-  
+  const { loading, data } = useSelector(({ users: { currentUser } }) =>currentUser)
   const [ collapsed, setCollapsed ] = useState();
   const history = useHistory()
   const { Header, Sider, Content } = Layout;
@@ -31,7 +32,7 @@ export default function Overview({children}) {
       >
         <div className="logo" style={{ backgroundColor: "gray", padding: "10px", margin: "auto",
         textAlign: "center", marginBottom: "20px" }}
-        >Ibrahim Bagalwa</div>
+        >{data.fsname}-{data.lsname}</div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1" onClick={() =>history.push("/admin")} icon={<DashboardOutlined />}>
             Tableau de bord

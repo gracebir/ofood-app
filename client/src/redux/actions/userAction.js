@@ -72,7 +72,7 @@ export const getCurrentUser = async(dispatch, history) =>{
                 payload: 'Connexion impossible, veuillez reessayer'
             })
         }
-        history.push('/login')
+        // window.location.href='/login'
     }
 
 }
