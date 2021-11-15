@@ -1,27 +1,68 @@
+import { Button } from 'antd';
 import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
+import { registerAction } from '../../redux/actions/userAction';
 
 function RegisterScreen(props) {
-        const [name, setName] = useState('');
-        const [email, setEmail] = useState('');
-        const [password, setPassword] = useState('');
-        const [rePassword, setRePassword] = useState('');
+        const dispatch = useDispatch();
+        const {loading, error} = useSelector(({users: register})=>register);
 
+        const [fsname, setName] = useState('');
+        const [lsname, setLsName] = useState('');
+        const [email, setEmail] = useState('');
+        const [phone, setPhone] = useState('');
+        const [avatar, setAvatar] = useState('');
+
+        const onFileChange = (e) =>{
+            const file = e.target.files[0];
+            if(file){
+                const reader = new FileReader();
+                reader.readAsDataURL(file)
+                reader.onloadend = () =>{
+                    setAvatar(reader.result);
+                    console.log(avatar);
+                }
+            }
+        }
          const submitHandler = (e)=>{
              e.preventDefault();
+             registerAction({
+                 fsname: fsname,
+                 lsname: lsname,
+                 email: email,
+                 phone: phone,
+                 avatar: avatar
+             })(dispatch)
+             
          }
          return  (
              <div className="form">
-                 <form action="" onSubmit={submitHandler}>
+                 <form action="" onSubmit={(submitHandler)}>
                      <ul className="form-container">
                          <li>
                              <h2>Create Account</h2>
                          </li>
+                         {
+                             loading &&
+
+                             <li>chargement...</li>
+                         }
+                         {
+                             error && 
+                             <div className="div-error"> {error} </div>
+                         }
                          <li>
-                             <label htmlFor="name">
-                                 Name
+                             <label htmlFor="fsname">
+                                 First Name
                              </label>
-                             <input type="name" name="name" id="name" onChange ={(e)=>setName(e.target.value)}  />
+                             <input type="name" name="fsname" id="name" onChange ={(e)=>setName(e.target.value)}  />
+                         </li>
+                         <li>
+                             <label htmlFor="lsname">
+                                 Last Name
+                             </label>
+                             <input type="name" name="lsname" id="name" onChange ={(e)=>setLsName(e.target.value)}  />
                          </li>
                          <li>
                              <label htmlFor="email">
@@ -30,19 +71,19 @@ function RegisterScreen(props) {
                              <input type="email" name="email" id="email" onChange ={(e)=>setEmail(e.target.value)}  />
                          </li>
                          <li>
-                             <label htmlFor="password">
-                                 Password
+                             <label htmlFor="phone">
+                                 Phone
                              </label>
-                             <input type="password" id="password" name="password" onChange = {(e)=>setPassword(e.target.value)} />
+                             <input type="tel" id="phone" name="phone" onChange = {(e)=>setPhone(e.target.value)} />
                          </li>
                          <li>
-                             <label htmlFor="rePassword">
-                                 Confirm Password
+                             <label htmlFor="avatar">
+                                 Avatar
                              </label>
-                             <input type="password" id="rePassword" name="rePassword" onChange = {(e)=>setRePassword(e.target.value)} />
+                             <input type="file" id="avatar" name="avatar" accept="*/image" onChange = {(e)=>onFileChange(e)} />
                          </li>
                          <li>
-                             <button type="submit" className="button primary">Register</button>
+                             <Button disabled={!fsname || !lsname || !phone || !email} loading={loading} type="primary" htmlType="submit" block>Register</Button>
                          </li>
                          <li>
                              All ready have account to somba? <Link to='/login'>Sign-in</Link>

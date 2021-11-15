@@ -39,8 +39,8 @@ export default function Overview({children}) {
           <Menu.Item key="2" onClick={() =>history.push("/admin/users")} icon={<UserOutlined />}>
             Utilisateurs
           </Menu.Item>
-          <Menu.Item key="3" onClick={() =>history.push("/admin/companys")} icon={<BankOutlined />}>
-            Restaurants
+          <Menu.Item key="3" onClick={() =>history.push("/admin/addProduct")} icon={<BankOutlined />}>
+            Ajouter un Produit
           </Menu.Item>
           <Menu.Item key="4" onClick={() =>history.push("/admin/orders")} icon={<DollarCircleOutlined />}>
             Commandes

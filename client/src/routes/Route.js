@@ -10,6 +10,8 @@ import SignInScreen from "../components/user/login";
 import RegisterScreen from "../components/user/register";
 import NotFound  from "../helpers/404";
 import { AdminRoute } from "./protectedRoute";
+import CreateProduct from "../components/admin/pages/createProduct";
+import CartScreen from "../components/Cards/card";
 
 export function Routes(){
     return(<>
@@ -22,6 +24,7 @@ export function Routes(){
                     <Overview>
                         <Switch>
                             <AdminRoute key="admin-home" exact path="/admin" component={Stats}/>
+                            <AdminRoute key="admin-add-product" exact path="/admin/addProduct" component={CreateProduct}/>
                             <Route path="*"><NotFound/></Route>
                         </Switch>
                     </Overview>
@@ -30,7 +33,8 @@ export function Routes(){
                 <Nav>
                     <Switch>
                         <Route key="home" exact path="/" render={() => <Product />}/>
-                        <Route key="result" exact path="/search-menus" render={() => <ProductScreen />}/>
+                        <Route key="result" exact path="/detailProduct/:productId" render={() => <ProductScreen />}/>
+                        <Route key="cart" exact path="/cart/:id?" render={()=><CartScreen/>}/>
                         <Route path="*"><NotFound/></Route>
                     </Switch>
                 </Nav>
