@@ -1,7 +1,21 @@
+import { Avatar, Popover } from 'antd';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
 
 export default function Nav({children}) {
+  const { data } = useSelector(({ users: { currentUser } }) =>currentUser);
+  const user = data
+  const disconnect = () =>{
+      localStorage.removeItem('authtoken');
+      window.location.replace('/login');
+  }
+  const content = (
+      <div>
+        <p>Profile</p>
+        <p style={{ cursor: 'pointer' }} onClick={disconnect} >Deconnexion</p>
+      </div>
+    );
     const openMenu = ()=>{
         document.querySelector('.side').classList.add('open');
       }
@@ -19,7 +33,13 @@ export default function Nav({children}) {
         </div>
         <div className="header-links">
             <Link to='/cart'>Cart</Link>
+            {
+              user ?  
+              <Popover placement='bottomRight' content={content} title={ <h2> {data.fsname} {data.lsname} </h2> } trigger="click">
+                <Avatar children={<img src={`http://127.0.0.1/resource/${data.avatar}`} alt={data.fsname} className="avatar"/>} />
+              </Popover> :
             <Link to="/login">Sign-In</Link>
+            }
         </div>
       </header>
       <aside className="side">

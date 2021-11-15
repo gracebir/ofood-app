@@ -30,6 +30,7 @@ export const ProductImg = styled.img`
 
 export const ProductsHeading = styled.h1`
 color: white;
+font-weight: bold;
   font-size: clamp(2rem, 2.5vw, 3rem);
   text-align: center;
   margin-bottom: 5rem;
@@ -37,7 +38,7 @@ color: white;
 
 export const ProductTitle = styled.h2`
   color: white;
-  font-weight: 600;
+  font-weight: bold;
   font-size: 1.5rem;
 `;
 

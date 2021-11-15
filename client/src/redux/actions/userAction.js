@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_REQUEST, GET_CURRENT_USER_SUCCESS, USER_LIST_FAIL, USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS } from "../constants/userConstants";
 
-const url = "https://localhost:3700/";
+const url = "http://127.0.0.1:3700"
 
 export const loginAction = (data) => async(dispatch) =>{
     dispatch({
@@ -9,7 +9,7 @@ export const loginAction = (data) => async(dispatch) =>{
     });
 
     try {
-        const res = await axios.post(`${url}/api/user/login`, data);
+        const res = await axios.post(`http://127.0.0.1:3700/api/user/login`, data);
         if(res.status  === 200){
             dispatch({
                 type: USER_LOGIN_SUCCESS,
@@ -89,7 +89,7 @@ export const registerAction = (data)=> async (dispatch, history) =>{
                 payload: res.data
             });
             // history.push('/users');
-            window.location.replace('/users')
+            window.location.replace('/')
         };
     } catch (error) {
         console.log(error)
