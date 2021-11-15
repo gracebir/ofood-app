@@ -3,5 +3,10 @@ export default{
         loading: false,
         data:{},
         error:null
+    },
+    productList:{
+        loading: false,
+        data:{},
+        error:null
     }
 }

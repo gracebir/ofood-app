@@ -32,7 +32,7 @@ export function Routes(){
                 <Nav>
                     <Switch>
                         <Route key="home" exact path="/" render={() => <Product />}/>
-                        <Route key="result" exact path="/search-menus" render={() => <ProductScreen />}/>
+                        <Route key="result" exact path="/detailProduct/:productId" render={() => <ProductScreen />}/>
                         <Route path="*"><NotFound/></Route>
                     </Switch>
                 </Nav>

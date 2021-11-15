@@ -51,6 +51,7 @@ export const getAllProduct = async(dispatch, history) =>{
                 type: PRODUCT_LIST_SUCCESS,
                 payload: res.data.data
             })
+            console.log(res.data.data, "------------")
         }
     } catch (error) {
         const res = error.response;

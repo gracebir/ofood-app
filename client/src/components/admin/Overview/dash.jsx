@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-import { CheckCircleOutlined, DollarCircleOutlined, UserOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, DollarCircleOutlined, ProjectOutlined, UserOutlined } from '@ant-design/icons';
 import "./dash.css"
+import { useSelector } from 'react-redux';
 
 export default function Stats(){
+    const {data} = useSelector(({products: {productList}})=>productList);
     return(
         <div className="stat">
             <div data-aos="fade-up" className="stat-card" style={{ width: 200 }}>
-                <UserOutlined className="stat-icon" />
-                <h1>{0}</h1>
-                <div>Utilisateurs actifs</div>
+                <ProjectOutlined className="stat-icon" />
+                <h1>{data.length}</h1>
+                <div>Total product</div>
             </div>
             <div data-aos="fade-up" className="stat-card" style={{ width: 200 }}>
                 <DollarCircleOutlined className="stat-icon"/>
