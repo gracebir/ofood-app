@@ -17,7 +17,7 @@ export function ProtectedRoute(props){
 
 
 export function AdminRoute(props){
-    // const Component = props.component;
+    const Component = props.component;
     // const { isAdmin, } = useSelector(({ users: { user } }) =>user);
     // const history = useHistory();
     // const location = useLocation();
