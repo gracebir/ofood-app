@@ -2,8 +2,66 @@ import { Button } from 'antd'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveProductAction } from '../../../redux/actions/productAction';
-
+import { Table, Tag, Space } from 'antd';
+import './create.css'
 export default function CreateProduct() {
+
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    render: text => <a>{text}</a>,
+  },
+  {
+    title: 'Category',
+    dataIndex: 'categorie',
+    key: 'categorie',
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    key: 'price',
+  },  
+  {
+    title: 'Quantity',
+    dataIndex: 'qty',
+    key: 'qty',
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (text, record) => (
+      <Space size="middle">
+        <a>Delete</a>
+      </Space>
+    ),
+  },
+];
+
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    price: 32,
+    qty:2,
+    categorie: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    price: 42,
+    qty:3,
+    categorie: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    price: 32,
+    qty:4,
+    categorie: 'Sidney No. 1 Lake Park',
+  },
+];
 
     const dispatch = useDispatch();
     const {loading, error} = useSelector(({products: productRegister})=>productRegister);
@@ -38,6 +96,7 @@ export default function CreateProduct() {
         })(dispatch)
     }
     return (
+        <>
         <div className="newUser">
         <h1 className="newUserTitle">New Product</h1>
         {
@@ -72,9 +131,11 @@ export default function CreateProduct() {
                 <label htmlFor="">Category</label>
                 <input type="text"onChange = {(e)=>{setCategory(e.target.value)}} />
             </div>
-            <Button type="submit" disabled={!name || !price || !desc || !avatar || !qty || !categorie } className="newUserButton">Create</Button>
+            <Button type="primary" disabled={!name || !price || !desc || !avatar || !qty || !categorie } loading={loading} htmlType="submit">Create</Button>
 
         </form>
     </div>
+        <Table columns={columns} dataSource={data} style={{marginTop:'10px'}}/>
+    </>
     )
 }
