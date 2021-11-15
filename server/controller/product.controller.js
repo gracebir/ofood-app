@@ -4,7 +4,7 @@ import { sendErrorResponse, sendSuccessResponse } from "../helpers/response.help
 import { failureCodes, successCodes } from "../helpers/statusCodes.helper.js";
 import { generateToken } from "../helpers/token.helper.js";
 import onConnexion from "../services/connexion.js";
-
+import cloudinary from "../helpers/cloudinary.js";
 
 const {created, ok} =successCodes;
 const {  notFound, conflict,internalServerError } = failureCodes;
@@ -14,18 +14,12 @@ const {  noRecordFound, diplicated,updateFail,interError} = errorMessages;
 export default {
     registerProduct: async (req,res)=>{
         const { name, qty, desc, categorie, price, avatar, datastatus, date, button} = req.body;
+        const urlIm = req.file.path;
         const transaction = await onConnexion.transaction();
 
         try {
-            let filename = "productdefault.pjg";
-            if(req.files && req.files.avatar){
-                const img = req.files.avatar; const _ = img.name; 
-                const ext = _.substring(_.lastIndexOf(".")).toLowerCase();
-                filename = encdec.randomstring().concat(ext);
-                img.mv('assets/imgs/'+ filename, err => {
-                    if(err) filename = "productdefault.pjg"
-                })
-            }
+            const rlt = await cloudinary.uploader.upload(urlIm);
+
             const product = await Product.create({
                 datastatus : process.env.STATUS,
                 name, 
@@ -33,7 +27,7 @@ export default {
                 desc,
                 categorie,
                 price,
-                avatar: filename,
+                avatar: rlt.secure_url,
                 button: "Details"
             }, {transaction});
             if(product instanceof Product){
