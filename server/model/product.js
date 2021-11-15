@@ -14,8 +14,8 @@ const Product = db.define('__tbl_products', {
         type: Sequelize.STRING,
         allowNull: true
     },
-    alt: {
-        type: Sequelize.STRING,
+    qty: {
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     categorie: {
@@ -31,8 +31,8 @@ const Product = db.define('__tbl_products', {
         allowNull: false,
         defaultValue:"Details"
     },  
-    date: {
-        type: Sequelize.STRING,
+    price: {
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 

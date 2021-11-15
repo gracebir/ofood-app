@@ -13,7 +13,7 @@ const {  noRecordFound, diplicated,updateFail,interError} = errorMessages;
 
 export default {
     registerProduct: async (req,res)=>{
-        const { name, alt, desc, categorie, avatar, datastatus, date, button} = req.body;
+        const { name, qty, desc, categorie, price, avatar, datastatus, date, button} = req.body;
         const transaction = await onConnexion.transaction();
 
         try {
@@ -29,10 +29,10 @@ export default {
             const product = await Product.create({
                 datastatus : process.env.STATUS,
                 name, 
-                alt, 
+                qty, 
                 desc,
                 categorie,
-                date: "default",
+                price,
                 avatar: filename,
                 button: "Details"
             }, {transaction});

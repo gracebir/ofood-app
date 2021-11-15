@@ -14,8 +14,8 @@ dotenv.config();
 const PORT = process.env.PORT || 3700;
 
 app.use(cors())
-app.use(express.urlencoded({extended:true, limit: '5mb'}));
-app.use(express.json({limit:'5mb'}));
+app.use(express.urlencoded({extended:true, limit: '50mb'}));
+app.use(express.json({limit:'50mb'}));
 
 app.use(express.static('assets'));
 app.use(UploadedFile());
@@ -29,7 +29,7 @@ app.get('/resource/:resources', (req, res, next)=>{
     res
         .status(200)
         .sendFile(path.resolve(`assets/imgs/${rss}`));
-        // next
+        next
 })
 
 app.use((req, res, next)=>{
