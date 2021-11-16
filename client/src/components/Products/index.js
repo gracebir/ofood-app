@@ -1,6 +1,5 @@
-import React, { Children } from 'react';
-import {useHistory} from 'react-router-dom'
-import product1 from '../../assets/pizza-1.jpg'
+import React from 'react';
+import {useHistory} from 'react-router-dom';
 import { 
   ProductsContainer,
   ProductWrapper,

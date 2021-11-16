@@ -7,14 +7,15 @@ import { addToCart, removeFromCart } from '../../redux/actions/cartItem';
 
 function CartScreen(props) {
 
-    const {cartItems} = useSelector(state => state.cartItems);
-  console.log(cartItems)
+    const cart = useSelector(state => state.cart);
+    const {cartItems} = cart;
+    console.log(cartItems)
     const params = useParams()
     const location = useLocation()
     const history = useHistory()
 
     const productId = params.productId;
-    const qtey = location.search? Number(location.search.split("=")[1]):1;
+    const qty = location.search? Number(location.search.split("=")[1]):1;
     const dispatch = useDispatch()
 
     const removeFromCartHandler = (productId)=>{
@@ -27,7 +28,7 @@ function CartScreen(props) {
 
     useEffect(() => {
        if(productId){
-           dispatch(addToCart(productId,qtey));
+           dispatch(addToCart(productId,qty));
        }
     }, [])
     return (
@@ -39,13 +40,13 @@ function CartScreen(props) {
                         <div>Prix</div>
                     </li>
                     {
-                        cartItems.length ===0 ?
+                        cart.length ===0 ?
                         <div>
                             <Empty/>
                             Cart is empty
                         </div>
                         :
-                        cartItems.map(item=>
+                        cart.map(item=>
                             <div>
                                <div className="cart-image">
                                    <img src={item.avatar} alt="product" />
@@ -58,7 +59,7 @@ function CartScreen(props) {
                                    </div>
                                    <div>
                                       Qty: 
-                                      <select value={item.qtey} onChange={(e)=>dispatch(addToCart(item.product, e.target.value))} >
+                                      <select value={item.qty} onChange={(e)=>dispatch(addToCart(item.product, e.target.value))} >
                                             {[...Array(item.qty).keys()].map(x=>
                                                 <option key={x+1} value = {x + 1}> {x + 1} </option>
                                             )}
@@ -76,11 +77,11 @@ function CartScreen(props) {
             </div>
             <div className="cart-action">
                 <h3>
-                    subtotal ({cartItems.reduce((a,b) => a + b.qty, 0)} items)
+                    subtotal ({cart.reduce((a,b) => a + b.qty, 0)} items)
                     :
-                    $ {cartItems.reduce((a,b) => a + b.price * b.qty, 0)}
+                    $ {cart.reduce((a,b) => a + b.price * b.qty, 0)}
                 </h3>
-                <button onClick={checkoutHandler} className="button primary full-width" disabled={cartItems.length === 0}> Proceed to Checkout</button>
+                <button onClick={checkoutHandler} className="button primary full-width" disabled={cart.length === 0}> Proceed to Checkout</button>
             </div>
         </div>
     )
