@@ -9,6 +9,7 @@ export const loginAction = (data) => async(dispatch) =>{
     });
 
     try {
+        const redirect = window.location.search?window.location.search.split("=")[1]: '/'
         const res = await axios.post(`http://127.0.0.1:3700/api/user/login`, data);
         if(res.status  === 200){
             dispatch({
@@ -16,7 +17,7 @@ export const loginAction = (data) => async(dispatch) =>{
                 payload: res.data
             });
             localStorage.setItem('authtoken', res.data.token);
-            window.location.href = "/"
+            window.location.href = redirect
         };
         console.log(res.status);
     } catch (error) {
@@ -72,12 +73,13 @@ export const getCurrentUser = async(dispatch, history) =>{
                 payload: 'Connexion impossible, veuillez reessayer'
             })
         }
-        history.push('/login')
+        // window.location.href='/login'
     }
 
 }
 
 export const registerAction = (data)=> async (dispatch, history) =>{
+    const redirect = window.location.search?window.location.search.split("=")[1]: '/'
     dispatch({
         type: USER_REGISTER_REQUEST
     });
@@ -89,7 +91,7 @@ export const registerAction = (data)=> async (dispatch, history) =>{
                 payload: res.data
             });
             // history.push('/users');
-            window.location.replace('/')
+            window.location.replace(redirect)
         };
     } catch (error) {
         console.log(error)

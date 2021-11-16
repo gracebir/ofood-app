@@ -10,7 +10,7 @@ import { sendPasswordEmailContent } from "../helpers/mailMessageContent.js";
 import sendEmail from "../helpers/sendMail.js";
 import pkg from 'sequelize';
 const { Op } = pkg;
-
+import cloudinary from "../helpers/cloudinary.js";
 const {created, ok} =successCodes;
 const {  unAuthorized,notFound, conflict,internalServerError,forbidden } = failureCodes;
 const { accountCreated, recordFound, loginSuccess,updateSuccess,approveEmailAddressToAdmin, RetraitSuccess } = successMessages;
@@ -20,6 +20,7 @@ export default {
     // function doing connection of user
     createUser: async(req,res)=>{
         const { role, email, fsname, lsname, phone, pwd} = req.body;
+        let url=  req.file.path;
         const passwordRandom = function getRandomNumber(len){
             var len = len;
             var num=[];
@@ -33,15 +34,16 @@ export default {
         const transaction = await onConnexion.transaction();
 
         try {
-            let filename = "userprofile.png";
-            if(req.files && req.files.avatar){
-                const img = req.files.avatar; const _ = img.name; 
-                const ext = _.substring(_.lastIndexOf(".")).toLowerCase();
-                filename = encdec.randomstring().concat(ext);
-                img.mv('assets/imgs/'+ filename, err => {
-                    if(err) filename = "userprofile.png"
-                })
-            }
+            // let filename = "userprofile.png";
+            // if(req.files && req.files.avatar){
+            //     const img = req.files.avatar; const _ = img.name; 
+            //     const ext = _.substring(_.lastIndexOf(".")).toLowerCase();
+            //     filename = encdec.randomstring().concat(ext);
+            //     img.mv('assets/imgs/'+ filename, err => {
+            //         if(err) filename = "userprofile.png"
+            //     })
+            // }
+            const resl =  await cloudinary.uploader.upload(url);
             const user = await User.create({
                 datastatus : process.env.STATUS,
                 email, 
@@ -49,7 +51,7 @@ export default {
                 lsname,
                 phone,
                 pwd: password,
-                avatar: filename,
+                avatar: resl.secure_url,
                 role: process.env.DEACTIVED
             }, {transaction});
             if(user instanceof User){

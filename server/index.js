@@ -17,20 +17,21 @@ app.use(cors())
 app.use(express.urlencoded({extended:true, limit: '50mb'}));
 app.use(express.json({limit:'50mb'}));
 
-app.use(express.static('assets'));
-app.use(UploadedFile());
+// app.use(express.static('assets'));
+// app.use(UploadedFile());
 
 app.use('/api', router);
 app.get('/', (req,res)=>{
     res.status(200).json({status:200, message:"Welcome to somba API"})
 })
-app.get('/resource/:resources', (req, res, next)=>{
-    const rss =(req.params['resources']);
-    res
-        .status(200)
-        .sendFile(path.resolve(`assets/imgs/${rss}`));
-        next
-})
+// app.get('/resource/:ressources', (req, res, next)=>{
+//     const rss =(req.params['resources']);
+//     res
+//         .status(200)
+//         .sendFile(path.resolve(`/assets/imgs/${rss}`));
+//         // next
+//     console.log(path.resolve(`assets/imgs/${rss}`))
+// })
 
 app.use((req, res, next)=>{
     res

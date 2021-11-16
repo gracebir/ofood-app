@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Children } from 'react';
 import {useHistory} from 'react-router-dom'
+import product1 from '../../assets/pizza-1.jpg'
 import { 
   ProductsContainer,
   ProductWrapper,
@@ -23,9 +24,8 @@ function ProductsCheckout({heading, data}) {
           {data?.map((product, index) => {
             return (
               <ProductCard key={index} onClick={()=>history.push(`/detailProduct/${product.id}`)}>
-                <ProductImg>
-                    {/* <img src={`http://127.0.0.1:3700/resource/${product.avatar}`}/> */}
-                </ProductImg>
+                <ProductImg src={product.avatar}
+                />
                 <ProductInfo>
                   <ProductTitle>{product.name}</ProductTitle>
                   <ProductDesc>{product.desc}</ProductDesc>

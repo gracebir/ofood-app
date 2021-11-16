@@ -40,15 +40,15 @@ function ProductScreen(props) {
             </div>
                 <div className="details">
                 <div className="details-image">
-                    {/* <img src={product.img} alt={data.id}/> */}
+                   <img src={product.avatar} alt={product.id}/>
                 </div>
                 <div className="details-info">
                     <ul>
                         <li>
-                            <h4>{product.name}</h4>
+                            <h3>{product.name}</h3>
                         </li>
                         <li>
-                            {product.alt}
+                            {product.categorie}
                         </li>
                         <li>
                             Prix: <b style={{color:"#bb2124"}}>{product.price}$</b> 
@@ -59,12 +59,15 @@ function ProductScreen(props) {
                                 {product.desc}
                             </div>
                         </li>
+                        <li>
+                            Quantity in stock: <b> {product.qty}</b>
+                        </li>
                     </ul>
                 </div>
                 <div className="details-action">
                      <ul>
                         <li>
-                             prix: {product.price}
+                             prix: <b>$ {product.price} </b>
                         </li>
                        <li>
                             Status: {product.qty > 0 ? "In stock": "Unavailable"}

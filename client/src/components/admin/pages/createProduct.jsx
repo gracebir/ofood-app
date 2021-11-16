@@ -5,14 +5,14 @@ import { getAllProduct, saveProductAction } from '../../../redux/actions/product
 import { Table, Tag, Space } from 'antd';
 import './create.css'
 import { useHistory } from 'react-router';
+import axios from 'axios';
+const url = "http://127.0.0.1:3700";
+
 export default function CreateProduct() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const {data} = useSelector(({products:{productList}})=>productList);
-    useEffect(()=>{
-        getAllProduct(dispatch, history)
-    }, [dispatch])
-    console.log(data)
+    const [productData, setProductData] = useState([]);
+   
     const columns = [
     {
         title: 'Name',
@@ -45,7 +45,24 @@ export default function CreateProduct() {
         ),
     },
     ];
-
+    const fetchData = async ()=>{
+        try {
+          const res = await axios.get(`${url}/api/product/`, {
+            headers: {
+              'authtoken': localStorage.getItem('authtoken')
+            }
+          });
+          if(res.status === 200){
+            setProductData(res.data.data);
+          }
+        } catch (error) {
+          const res = error.response;
+          console.log(error)
+        }
+      };
+      useEffect(()=>{
+        fetchData(dispatch, history)
+    }, [dispatch])
 
     
     const {loading, error} = useSelector(({products: productRegister})=>productRegister);
@@ -119,7 +136,8 @@ export default function CreateProduct() {
 
         </form>
     </div>
-        <Table columns={columns} dataSource={data} style={{marginTop:'10px'}}/>
+        <Table columns={columns} dataSource={productData} style={{marginTop:'10px'}}/>
     </>
     )
 }
+

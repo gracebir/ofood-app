@@ -5,7 +5,6 @@ import Features from '../Features';
 import Hero from '../Hero'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { getAllProduct } from '../../redux/actions/productAction';
 import axios from 'axios';
 
 const url = "http://127.0.0.1:3700"
@@ -13,11 +12,6 @@ function Product() {
     const dispatch = useDispatch();
     const history = useHistory();
      const [userData, setData] = useState([]);
-    const {data, loading} = useSelector(({products:{productList}})=>productList);
-    
-    useEffect(()=>{
-        fetchData(dispatch, history)
-    }, [dispatch])
 
     const fetchData = async ()=>{
         try {
@@ -34,7 +28,9 @@ function Product() {
           console.log(error)
         }
       };
-      console.log(userData,"uuuuuuuuuuuuuuuuuuuu")
+      useEffect(()=>{
+        fetchData(dispatch, history)
+    }, [dispatch])
     return (
         <>
             <Hero/>
