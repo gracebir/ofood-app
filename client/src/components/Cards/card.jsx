@@ -8,8 +8,8 @@ import { addToCart, removeFromCart } from '../../redux/actions/cartItem';
 function CartScreen(props) {
 
     const cart = useSelector(state => state.cart);
-    const {cartItem} = cart;
-    console.log(cartItem)
+    const {cartItems} = cart;
+    console.log(cartItems)
     const params = useParams()
     const location = useLocation()
     const history = useHistory()
