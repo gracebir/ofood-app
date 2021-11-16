@@ -1,14 +1,15 @@
 import { Button } from 'antd';
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import { loginAction } from '../../redux/actions/userAction';
 
 function SignInScreen(props) {
-    
+    const location= useLocation();
     const [email, setEmail] = useState('');
     const [pwd, setPassword] = useState('');
     const dispatch = useDispatch();
+    const redirect = location.search?location.search.split("=")[1]: '/'
     const { loading, error } = useSelector(({ users: { login } }) =>login);
 
      const handlersubmit = (e)=>{
@@ -54,7 +55,7 @@ function SignInScreen(props) {
                             New to Somba
                         </li>
                         <li>
-                            <Link to="/register" className="button secondary text-center" >Create your Somba account</Link>
+                            <Link to={redirect === "/" ? "register":'register?redirect='+redirect} className="button secondary text-center" >Create your Somba account</Link>
                         </li>
                     </ul>
                 </form>

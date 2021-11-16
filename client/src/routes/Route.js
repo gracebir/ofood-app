@@ -18,6 +18,9 @@ import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import ShippingScreen from "../components/Cards/shipping";
+import PaymentScreen from "../components/Cards/Payement";
+import PlaceOlderScreen from "../components/Cards/placeOrder";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,6 +82,9 @@ export function Routes(){
                         <Route key="home" exact path="/" render={() => <Product />}/>
                         <Route key="result" exact path="/detailProduct/:productId" render={() => <ProductScreen />}/>
                         <Route key="cart" exact path="/cart/:id?" render={()=><CartScreen/>}/>
+                        <Route key="shipping" exact path="/shipping" render={()=><ShippingScreen/>}/>
+                        <Route key="payment" exact path="/payment" render={()=><PaymentScreen/>}/>
+                        <Route key="placer-order" exact path="/placeorder" render={()=><PlaceOlderScreen/>}/>
                         <Route path="*"><NotFound/></Route>
                     </Switch>
                 </Nav>

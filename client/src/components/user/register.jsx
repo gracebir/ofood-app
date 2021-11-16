@@ -6,6 +6,7 @@ import { registerAction } from '../../redux/actions/userAction';
 
 function RegisterScreen(props) {
         const dispatch = useDispatch();
+        const redirect = window.location.search?window.location.search.split("=")[1]: '/'
         const {loading, error} = useSelector(({users: register})=>register);
 
         const [fsname, setName] = useState('');
@@ -86,7 +87,7 @@ function RegisterScreen(props) {
                              <Button disabled={!fsname || !lsname || !phone || !email} loading={loading} type="primary" htmlType="submit" block>Register</Button>
                          </li>
                          <li>
-                             All ready have account to somba? <Link to='/login'>Sign-in</Link>
+                             All ready have account to somba? <Link to={redirect === "/" ? "login":'login?redirect='+redirect}>Sign-in</Link>
                          </li>
                      </ul>
                  </form>
